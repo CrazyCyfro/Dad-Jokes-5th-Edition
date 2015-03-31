@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.doritos.mtndew.dadjokes5thedition.JokeDetailActivity">
+
+    <TextView
+        android:id="@+id/joke_detail"
+        android:layout_width="fill_parent"
+        android:layout_height="500dp"
+        android:text="fadfasdf"
+        android:textSize="30sp"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/joke_detail"
+        android:layout_centerInParent="true"
+        android:text=""/>
+
+</RelativeLayout>

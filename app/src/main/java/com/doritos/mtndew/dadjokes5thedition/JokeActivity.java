@@ -1,15 +1,22 @@
 package com.doritos.mtndew.dadjokes5thedition;
 
+import android.app.ListActivity;
+import android.content.Context;
+import android.media.Image;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
-public class JokeActivity extends ActionBarActivity {
-    private ListView mJokeView = (ListView)findViewById()
+public class JokeActivity extends ListActivity {
+    private ListView mJokeView = (ListView)this.findViewById(R.id.jokeView);
     private Joke[] mJokes = {
         new Joke("Grape","What did the grape do when he got stepped on?","He let out a little wine.",false),
         new Joke("Paper","Want to hear a joke about paper?","Never mind, it's tearable.",false),
@@ -22,14 +29,13 @@ public class JokeActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayAdapter<Joke> jokeAdapter;
+        JokeAdapter jokeAdapter = new JokeAdapter(JokeActivity.this, R.layout.list_item_joke, mJokes);
+        mJokeView.setAdapter(jokeAdapter);
 
-        jokeAdapter = new ArrayAdapter<Joke>(this, android.R.layout.simple_list_item_1, mJokes);
+    }
 
-
-
-
-
+    @Override
+    protected void OnListItemClick(ListView l, View v, int position, long id) {
     }
 
 
@@ -53,5 +59,39 @@ public class JokeActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class JokeAdapter extends ArrayAdapter<Joke> {
+        private int mResource;
+        private Joke[] mJokes;
+
+        public JokeAdapter(Context context, int resource, Joke[] jokes) {
+            super(context, resource, jokes);
+            mResource = resource;
+            mJokes = jokes;
+        }
+
+        @Override
+        public View getView(int position, View row, ViewGroup parent) {
+            if (row==null) {
+                row = getLayoutInflater().inflate(mResource, parent, false);
+            }
+
+            Joke currentJoke = mJokes[position];
+
+            TextView textView = (TextView)row.findViewById(R.id.list_text);
+            textView.setText(currentJoke.getTitle());
+
+            ImageView imageView = (ImageView)row.findViewById(R.id.list_graphic);
+            if (currentJoke.getmSeen() == false) {
+                imageView.setVisibility(View.VISIBLE);
+            } else {
+                imageView.setVisibility(View.INVISIBLE);
+            }
+
+            return row;
+        }
+
+
     }
 }
